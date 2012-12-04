@@ -27,7 +27,7 @@ while (!feof($data)) {
     $elevation=trim(strip_tags($line));
   if(preg_match('/<time>/',$line))
     $timestamp=strtotime(trim(strip_tags($line),"\t"));
-    echo "[$line]";
+    echo "[$line]\n";
     if($first_bool) 
       {
       $first = $timestamp;
