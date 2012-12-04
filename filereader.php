@@ -14,10 +14,12 @@ die("no map provided\n");
 }
 else
 {
-echo "map provided from the command line";
+echo "map provided from the command line\n";
 }
 $data=fopen($current_map,'r');
-//echo $data;
+
+//$time0=preg_match('/<time>/',$data);
+echo "time0: $time0";
 while (!feof($data)) {
   $line = fgets($data);
   if(preg_match('/<ele>/',$line))
