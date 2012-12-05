@@ -84,8 +84,8 @@ Apache License: v2.0. http://www.apache.org/licenses/LICENSE-2.0
 </header -->
 <nav>
 	<ul>
-		<li class="activo">Trazas</li>
-		<li>Agregar Trazas</li>
+		<li class="activo">Tracks</li>
+		<li>New Track upload</li>
 	</ul>
 </nav>
 <div class="content clearfix">
@@ -109,7 +109,7 @@ switch ($op) {
 </div><!-- / content -->
 
 <footer role="contentinfo">
-<small>Powered by TATICO</small>
+<small>http://gps.dragon-tortuga.net/</small>
 </footer>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
