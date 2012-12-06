@@ -17,11 +17,43 @@ if(!$current_map)
   {
   echo "map provided from the command line\n";
   }
-$data=fopen($current_map,'r');
 $first_bool = True;
 $first = "";
 
-while (!feof($data)) {
+//Get Contents of GPX
+$gpxData = file_get_contents($current_map);
+$gpxXML = new SimpleXMLELement($gpxData);
+
+$date = $gpxXML->trk->trkseg->trkpt->time;
+
+#### add data to gpx table ####a
+$latArray = array();
+$lonArray = array();
+$timeStamps = array();
+foreach($gpxXML->trk->trkseg as $trkSeg) {
+  foreach($trkSeg->trkpt as $trkPt) {
+    $time = $trkPt->time;
+    $timestamp = strtotime($time);
+    echo "time: $time timestamp: $timestamp";
+      if($first_bool) 
+      {
+      $first = $timestamp;
+      $first_bool = False;
+      echo "first: $first";
+      }
+    if(in_array($time, $timeStamps)) {
+      continue;
+      }
+      
+
+    $elev = $trkPt->ele;
+    $lat = $trkPt['lat'];
+    $lon = $trkPt['lon'];
+    echo "$timestamp $elev\n";
+       }
+}
+
+/*while (!feof($data)) {
   $line = fgets($data);
   if(preg_match('/<ele>/',$line))
     $elevation=trim(strip_tags($line));
@@ -35,6 +67,6 @@ while (!feof($data)) {
       echo "first: $first";
       }
   echo "$elevation "."$first "."$timestamp\n";
-}
-fclose($data);
+} */
+//fclose($data);
 ?>
