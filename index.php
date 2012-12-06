@@ -29,6 +29,13 @@ Apache License: v2.0. http://www.apache.org/licenses/LICENSE-2.0
 <!-- link rel="stylesheet" href="css/320andup.css" -->
 <link rel="stylesheet/less" type="text/css" href="less/320andup.less">
 <script src="js/less-1.3.0.min.js" type="text/javascript"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/jquery-1.7.2.min.js"><\/script>')</script>
+
+<script src="js/plugins.js"></script>
+<script src="js/script.js"></script>
+<script src="js/helper.js"></script>
+
 <!--[if (lt IE 9) & (!IEMobile)]>
 <script src="js/selectivizr-min.js"></script>
 <![endif]-->
@@ -84,7 +91,7 @@ Apache License: v2.0. http://www.apache.org/licenses/LICENSE-2.0
 </header -->
 <nav>
 	<ul>
-		<li class="activo">Trazas</li>
+		<li class="activo"><a href="index.php">Trazas</a></li>
 		<li>Agregar Trazas</li>
 	</ul>
 </nav>
@@ -96,9 +103,12 @@ if(isset($_GET['op'])){
 }
 switch ($op) {
 	case 'track':
-		echo "<iframe src=\"gpx.php?track=$_GET[track]\">";
+		echo "<h2>$_GET[track]</h2>";
+
+		echo "<iframe id=\"mapa\"src=\"gpx.php?track=$_GET[track]\">";
 		//require_once(dirname(__FILE__) . "/gpx.php");
-		echo "</iframe>";
+		echo "</iframe>Share link: <a class=\"enlace\"id=\"url\"></a>";
+
 		break;
 
 	default:
@@ -112,13 +122,12 @@ switch ($op) {
 <small>Powered by TATICO</small>
 </footer>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/jquery-1.7.2.min.js"><\/script>')</script>
 
-<script src="js/plugins.js"></script>
-<script src="js/script.js"></script>
-<script src="js/helper.js"></script>
 <script>
+$(frames[0]).load(function(){ console.log(frames[0].url);
+	$('#url').attr('href', frames[0].url).html(frames[0].url);
+});
+
 var _gaq=[["_setAccount","UA-XXXXX-X"],["_trackPageview"]];
 (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
 g.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";

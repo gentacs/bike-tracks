@@ -6,8 +6,8 @@
 	     //echo "$file \n";
 	     if(strpos($file,$gpsext) !== false){
 	   		echo 	"<a href=\"index.php?op=track&track=$file\" class=\"preview_traza\">".
-						"<span>$file</span>".
-						"<div><img src=\"img/mountain-bike-bariloche2.jpg\" alt=\"\"></div>".
+						"<span >$file</span>".
+						"<div title=\"$file\"><img src=\"img/mountain-bike-bariloche2.jpg\" alt=\"\"></div>".
 					"</a>";
 		}
 	 }

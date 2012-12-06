@@ -8,16 +8,16 @@ echo "
      Using this hosted file will make sure we are kept up
      to date with any necessary changes -->
   <script src=\"http://www.openstreetmap.org/openlayers/OpenStreetMap.js\"></script>
- 
+
   <script type=\"text/javascript\">
     // Start position for the map (hardcoded here for simplicity,
     // but maybe you want to get this from the URL params)
     var lat=48.727877
     var lon=2.256297
     var zoom=13
- 
+
     var map; //complex object of type OpenLayers.Map
- 
+
     function init() {
       map = new OpenLayers.Map (\"map\", {
         controls:[
@@ -32,7 +32,7 @@ echo "
         projection: new OpenLayers.Projection(\"EPSG:900913\"),
         displayProjection: new OpenLayers.Projection(\"EPSG:4326\")
       } );
- 
+
       // Define the map layer
       // Here we use a predefined layer that will be kept up to date with URL changes
       layerMapnik = new OpenLayers.Layer.OSM.Mapnik(\"Mapnik\");
@@ -41,7 +41,7 @@ echo "
       map.addLayer(layerCycleMap);
       layerMarkers = new OpenLayers.Layer.Markers(\"Markers\");
       map.addLayer(layerMarkers);
- 
+
       // Add the Layer with the GPX Track
       var lgpx = new OpenLayers.Layer.Vector(\"Lakeside cycle ride\", {
         strategies: [new OpenLayers.Strategy.Fixed()],
@@ -53,20 +53,20 @@ echo "
         projection: new OpenLayers.Projection(\"EPSG:4326\")
       });
       map.addLayer(lgpx);
- 
+
       var lonLat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection(\"EPSG:4326\"), map.getProjectionObject());
       map.setCenter(lonLat, zoom);
- 
+
       var size = new OpenLayers.Size(21, 25);
       var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
       var icon = new OpenLayers.Icon('http://www.openstreetmap.org/openlayers/img/marker.png',size,offset);
       layerMarkers.addMarker(new OpenLayers.Marker(lonLat,icon));
     }
   </script>
- 
+
 <!-- body.onload is called once the page is loaded (call the 'init' function) -->
 <body onload=\"init();\">
-<div style=\"width:90%; height:90%\" id=\"map\">
+<div style=\"width:100%; height:100%\" id=\"map\">
 </div>
   <!-- define a DIV into which the map will appear. Make it take up the whole window --> ";
 ?>
