@@ -35,6 +35,7 @@ Apache License: v2.0. http://www.apache.org/licenses/LICENSE-2.0
 <script src="js/plugins.js"></script>
 <script src="js/script.js"></script>
 <script src="js/helper.js"></script>
+<script src="js/iscroll.js"></script>
 
 <!--[if (lt IE 9) & (!IEMobile)]>
 <script src="js/selectivizr-min.js"></script>
@@ -89,10 +90,27 @@ Apache License: v2.0. http://www.apache.org/licenses/LICENSE-2.0
 <!--header role="banner" class="clearfix">
 <h1><a href="http://stuffandnonsense.co.uk/projects/320andup/">320 and Up</a></h1>
 </header -->
+<?php
+	$track_activo 		= "";
+	$elevation_activo 	= "";
+	$track 				= "";
+	if(isset($_GET['track'])){
+		$track = "&track=".$_GET['track'];
+	}
+	if(isset($_GET['op']) && $_GET['op'] == 'track'){
+		$track_activo = "activo";
+	}
+	if(isset($_GET['op']) && $_GET['op'] == 'elevation'){
+		$elevation_activo = "activo";
+	}else{
+		$track_activo = "activo";
+	}
+?>
 <nav>
 	<ul>
-		<li class="activo"><a href="index.php">Trazas</a></li>
-		<li>Agregar Trazas</li>
+		<li class="<?php echo $track_activo; ?>"><a href="index.php?op=track<?php echo $track; ?>">Tracks</a></li>
+		<li class="<?php echo $elevation_activo; ?>"><a href="index.php?op=elevation<?php echo $track; ?>">Track Elevations</a></li>
+		<!--li>New Track upload</li -->
 	</ul>
 </nav>
 <div class="content clearfix">
@@ -103,15 +121,37 @@ if(isset($_GET['op'])){
 }
 switch ($op) {
 	case 'track':
-		echo "<h2>$_GET[track]</h2>";
-
-		echo "<iframe id=\"mapa\"src=\"gpx.php?track=$_GET[track]\">";
-		//require_once(dirname(__FILE__) . "/gpx.php");
-		echo "</iframe>Share link: <a class=\"enlace\"id=\"url\"></a>";
-
+		if(isset($_GET['track'])){
+			echo "<div id=\"wrapper\" class=\"horizontal\"><div id=\"scroller\">";
+			for($i = 0; $i < 50; $i++){
+				require(dirname(__FILE__) . "/inicio.php");
+			}
+			echo "</div></div>";
+			echo "<h2>$_GET[track]</h2>";
+			echo "<iframe id=\"mapa\"src=\"gpx.php?track=$_GET[track]\">";
+			echo "</iframe>Share link: <a class=\"enlace\"id=\"url\"></a>";
+		}else{
+			require_once(dirname(__FILE__) . "/inicio.php");
+		}
+		break;
+	case 'elevation':
+		if(isset($_GET['track'])){
+			echo "<div class=\"horizontal\">";
+			for($i = 0; $i < 50; $i++){
+				require(dirname(__FILE__) . "/inicio.php");
+			}
+			echo "</div>";
+			echo "<h2>$_GET[track]</h2>";
+			$_GET["elev"] = $_GET['track'];
+			date_default_timezone_set('Chile/Continental');
+			require_once(dirname(__FILE__) . "/filereader.php");
+		}else{
+			require_once(dirname(__FILE__) . "/inicio.php");
+		}
 		break;
 
 	default:
+		echo "<h2>Select the track to display </h2>\n";
 		require_once(dirname(__FILE__) . "/inicio.php");
 		break;
 }
@@ -119,7 +159,7 @@ switch ($op) {
 </div><!-- / content -->
 
 <footer role="contentinfo">
-<small>Powered by TATICO</small>
+<small>http://gps.dragon-tortuga.net/</small>
 </footer>
 
 
@@ -127,6 +167,17 @@ switch ($op) {
 $(frames[0]).load(function(){ console.log(frames[0].url);
 	$('#url').attr('href', frames[0].url).html(frames[0].url);
 });
+
+
+var myScroll;
+function loaded() {
+	myScroll = new iScroll('wrapper');
+}
+
+document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+
+document.addEventListener('DOMContentLoaded', loaded, false);
+
 
 var _gaq=[["_setAccount","UA-XXXXX-X"],["_trackPageview"]];
 (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;

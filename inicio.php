@@ -1,5 +1,5 @@
 <?php
-	echo "<h2>Select the track to display </h2>\n";
+	//echo "<h2>Select the track to display </h2>\n";
 	$gpsext=".gpx";
 	foreach (new DirectoryIterator("./") as $fn) {
 	     $file= $fn->getFilename();
@@ -12,7 +12,7 @@
 		}
 	 }
 
-	echo "<h2>Select the track elevation data to display </h2>\n";
+	/*echo "<h2>Select the track elevation data to display </h2>\n";
 	echo "<form action=\"filereader.php\" method=\"get\">";
 	echo "</br></br>";
 	echo "<select name=\"elev\">";
@@ -24,5 +24,5 @@
 	 }
 	echo "</select>";
 	echo "<input type=\"submit\" />";
-	echo "</form>";
+	echo "</form>";*/
 ?>
