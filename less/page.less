@@ -89,6 +89,9 @@ footer{
 h2{
 	color: @titulos;
 }
+#h2_track{
+	margin-top: 10px;
+}
 iframe{
 	width: 100%;
 	height: 400px;
@@ -109,17 +112,59 @@ iframe{
 		margin: 10px 2%;
 	}
 }
-#wrapper{
-	//position:absolute; z-index:1;
-	top:45px; bottom:0; left:0;
-	width:100%;
-	background:#aaa;
-	overflow:auto;
-}
 
-#scroller {
-	//width:2040px;
-	//height:100%;
-	float:left;
-	padding:0;
+.boton{
+	width: 200px;
+	border-radius: 5px;
+	color: #555;
+	font-weight: bolder;
+	cursor: pointer;
 }
+.normal{
+	box-shadow: 1px 1px 0px 0px #CCC,
+				0px 0px 0px 1px #CCC,
+				2px 2px 0px 0px #CCC,
+				3px 3px 2px 0px #AAA;
+	-moz-box-shadow: 1px 1px 0px 0px #CCC,
+				0px 0px 0px 1px #CCC,
+				2px 2px 0px 0px #CCC,
+				3px 3px 2px 0px #AAA;
+	-webkit-box-shadow:1px 1px 0px 0px #CCC,
+				0px 0px 0px 1px #CCC,
+				2px 2px 0px 0px #CCC,
+				3px 3px 2px 0px #AAA;
+}
+.presionado{
+	box-shadow: inset 1px 1px 0px 0px #CCC,
+				inset 0px 0px 0px 1px #CCC,
+				inset 2px 2px 2px 0px #CCC;
+	-moz-box-shadow:inset 1px 1px 0px 0px #CCC,
+				inset 0px 0px 0px 1px #CCC,
+				inset 2px 2px 2px 0px #CCC;
+	-webkit-box-shadow: inset 1px 1px 0px 0px #CCC,
+				inset 0px 0px 0px 1px #CCC,
+				inset 2px 2px 2px 0px #CCC;
+}
+.tracks{
+	box-shadow: inset #555 1px 1px 3px 2px;
+	-moz-box-shadow: inset #555 1px 1px 3px 2px;
+	-webkit-box-shadow: inset #555 1px 1px 3px 2px;
+	margin: 10px;
+}
+.contraido-y{
+	overflow: hidden;
+	height: 0px;
+}
+.expandido-y{
+	overflow-y: scroll !important;
+	height: 400px;
+	padding: 10px;
+}
+.flecha {
+	border-style: solid;
+	border-width: 50px;
+	border-color: #F00 #00F #0F0 #FF0;
+	width: 0;
+}
+.arriba {  border-color: #FFF #FFF #000 #FFF; }
+.abajo { border-color: #000 #FFF #FFF #FFF; }

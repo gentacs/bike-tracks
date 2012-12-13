@@ -35,7 +35,6 @@ Apache License: v2.0. http://www.apache.org/licenses/LICENSE-2.0
 <script src="js/plugins.js"></script>
 <script src="js/script.js"></script>
 <script src="js/helper.js"></script>
-<script src="js/iscroll.js"></script>
 
 <!--[if (lt IE 9) & (!IEMobile)]>
 <script src="js/selectivizr-min.js"></script>
@@ -122,12 +121,11 @@ if(isset($_GET['op'])){
 switch ($op) {
 	case 'track':
 		if(isset($_GET['track'])){
-			echo "<div id=\"wrapper\" class=\"horizontal\"><div id=\"scroller\">";
-			for($i = 0; $i < 50; $i++){
+			echo "<div id=\"display_tracks\" class=\"boton normal\">Display Tracks</div>";
+			echo "<div class=\"tracks contraido-y\">";
 				require(dirname(__FILE__) . "/inicio.php");
-			}
-			echo "</div></div>";
-			echo "<h2>$_GET[track]</h2>";
+			echo "</div>";
+			echo "<h2 id=\"h2_track\">$_GET[track]</h2>";
 			echo "<iframe id=\"mapa\"src=\"gpx.php?track=$_GET[track]\">";
 			echo "</iframe>Share link: <a class=\"enlace\"id=\"url\"></a>";
 		}else{
@@ -136,12 +134,12 @@ switch ($op) {
 		break;
 	case 'elevation':
 		if(isset($_GET['track'])){
-			echo "<div class=\"horizontal\">";
-			for($i = 0; $i < 50; $i++){
+			echo "<div id=\"display_tracks\" class=\"boton normal\">Display Tracks</div>";
+			echo "<div class=\"tracks contraido-y\">";
+			//echo "<div class=\"flecha arriba\"></div>";
 				require(dirname(__FILE__) . "/inicio.php");
-			}
 			echo "</div>";
-			echo "<h2>$_GET[track]</h2>";
+			echo "<h2  id=\"h2_track\">$_GET[track]</h2>";
 			$_GET["elev"] = $_GET['track'];
 			date_default_timezone_set('Chile/Continental');
 			require_once(dirname(__FILE__) . "/filereader.php");
@@ -169,16 +167,35 @@ $(frames[0]).load(function(){ console.log(frames[0].url);
 });
 
 
-var myScroll;
+/*var myScroll;
 function loaded() {
 	myScroll = new iScroll('wrapper');
 }
 
 document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 
-document.addEventListener('DOMContentLoaded', loaded, false);
+document.addEventListener('DOMContentLoaded', loaded, false);*/
 
+$(document).ready(function(){
+	$('#display_tracks').click(function(){
+		var boton 	= $(this);
+		var tracks 	= $('.tracks');
+		if(boton.hasClass('boton normal')){
+			boton.removeClass('normal').addClass('presionado');
+			tracks.css('padding', '10px');
+			tracks.animate({height: '400px'},function(){
+				$(this).removeClass('contraido-y').addClass('expandido-y')
+			});
+		}else{
+			boton.removeClass('presionado').addClass('normal');
 
+			tracks.animate({height: '0px'}, function(){
+				$(this).removeClass('expandido-y').addClass('contraido-y');
+				tracks.css('padding', '0px');
+			});
+		}
+	});
+});
 var _gaq=[["_setAccount","UA-XXXXX-X"],["_trackPageview"]];
 (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
 g.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";
